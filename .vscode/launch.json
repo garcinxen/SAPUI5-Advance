@@ -1,9 +1,8 @@
 {
-    "version": "0.2.0",
     "configurations": [
         {
-            "name": "SAPUI5 - Run Configuration",
-            "cwd": "${workspaceFolder}/Invoices/SAPUI5",
+            "name": "Run employees",
+            "cwd": "${workspaceFolder}/employees",
             "runtimeArgs": [
                 "fiori",
                 "run"
@@ -22,10 +21,38 @@
             "internalConsoleOptions": "openOnSessionStart",
             "outputCapture": "std",
             "env": {
-                "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/Invoices/SAPUI5\"}",
-                "FIORI_TOOLS_BACKEND_CONFIG": "[{\"path\":\"/sap\",\"url\":\"http://localhost\"}]",
+                "FIORI_TOOLS_BACKEND_CONFIG": "[{\"path\":\"/V2\",\"url\":\"https://services.odata.org\",\"destination\":\"Northwind\"}]",
+                "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+                "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/employees\"}"
+            }
+        },
+        {
+            "name": "Run employees_v2",
+            "cwd": "${workspaceFolder}/employees_v2",
+            "runtimeArgs": [
+                "fiori",
+                "run"
+            ],
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "npx",
+            "args": [
+                "--open",
+                "index.html"
+            ],
+            "windows": {
+                "runtimeExecutable": "npx.cmd"
+            },
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart",
+            "outputCapture": "std",
+            "env": {
+                "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/employees_v2\"}",
+                "FIORI_TOOLS_BACKEND_CONFIG": "[{\"destination\":\"Northwind\",\"path\":\"/V2\"}]",
                 "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false"
             }
         }
-    ]
+    ],
+    "compounds": [],
+    "version": "0.2.0"
 }
