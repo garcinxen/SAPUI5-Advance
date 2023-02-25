@@ -12,9 +12,9 @@ sap.ui.define([
         "use strict";
 
         function onInit () {
-            var oJSONModel = new sap.ui.model.json.JSONModel();
-            var oView = this.getView();
-            //var i18nBundle = oView.getModel("i18n").getResourceBundle();
+            let oJSONModel = new sap.ui.model.json.JSONModel();
+            let oView = this.getView();
+            //let i18nBundle = oView.getModel("i18n").getResourceBundle();
             
             oJSONModel.loadData("./localService/mockdata/Employees.json");
             // oJSONModel.attachRequestCompleted(function(oEventModel){
@@ -24,8 +24,8 @@ sap.ui.define([
         };
 
         function onFilter () {
-            var oJSON = this.getView().getModel().getData();
-            var filter = [];
+            let oJSON = this.getView().getModel().getData();
+            let filter = [];
 
             if (oJSON.EmployeeId !== "") {
                 filter.push(new Filter("EmployeeID", FilterOperator.EQ, oJSON.EmployeeId));
@@ -35,27 +35,35 @@ sap.ui.define([
                 filter.push(new Filter("Country", FilterOperator.EQ, oJSON.CountryKey));
             }
 
-            var oList = this.getView().byId("tableEmployee");
-            var oBinding = oList.getBinding("items");
+            let oList = this.getView().byId("tableEmployee");
+            let oBinding = oList.getBinding("items");
             oBinding.filter(filter);
         };
 
         function onClearFilter () {
-            var oModel = this.getView().getModel();
+            let oModel = this.getView().getModel();
             oModel.setProperty("/EmployeeId", "");
             oModel.setProperty("/CountryKey", "");
 
-            var filter = [];
-            var oList = this.getView().byId("tableEmployee");
-            var oBinding = oList.getBinding("items");
+            let filter = [];
+            let oList = this.getView().byId("tableEmployee");
+            let oBinding = oList.getBinding("items");
             oBinding.filter(filter);
         };
 
-        var Main = Controller.extend("employeesv2.controller.App", {});
+        function showPostalCode (oEvent) {
+            let itemPressed = oEvent.getSource();
+            let oContext = itemPressed.getBindingContext();
+            let objectContext = oContext.getObject();
+
+            sap.m.MessageToast.show(objectContext.PostalCode);
+        };
+
+        let Main = Controller.extend("employeesv2.controller.App", {});
             
         Main.prototype.onValidate = function () {
-            var inputEmployee = this.byId("inputEmployee");
-            var valueEmployee = inputEmployee.getValue();
+            let inputEmployee = this.byId("inputEmployee");
+            let valueEmployee = inputEmployee.getValue();
 
             if (valueEmployee.length === 6) {
                 //inputEmployee.setDescription("OK");
@@ -71,5 +79,6 @@ sap.ui.define([
         Main.prototype.onInit = onInit;
         Main.prototype.onFilter = onFilter;
         Main.prototype.onClearFilter = onClearFilter;
+        Main.prototype.showPostalCode = showPostalCode;
         return Main; 
     });

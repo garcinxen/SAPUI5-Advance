@@ -78,7 +78,9 @@
                                     </Column>
                                 </columns>
                                 <items>
-                                    <ColumnListItem id="colListItem">
+                                    <ColumnListItem id="colListItem"
+                                                    type="Active"
+                                                    press="showPostalCode">
                                         <cells>
                                             <Label id="labelCellId"
                                                    text="{EmployeeID}"/>
