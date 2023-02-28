@@ -1,0 +1,52 @@
+<mvc:View controllerName="lists.controller.App"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core" 
+    xmlns:layout="sap.ui.layout" 
+    xmlns="sap.m" 
+    displayBlock="true">
+    <Shell id="shell">
+        <App id="app">
+            <pages>
+                <Page id="page" 
+                      title="{i18n>title}">
+                    <content>
+                        <IconTabBar>
+                            <items>
+                                <IconTabFilter text="{i18n>objectList}">
+                                    <List items="{/Products}">
+                                        <items>
+                                            <ObjectListItem title="{Material} {Brand} {Model}"
+                                                            number="{Price}"
+                                                            numberUnit="{Currency}"
+                                                            type="Detail">
+                                                <ObjectAttribute text="{Brand}"/>
+                                                <ObjectAttribute text="{Weight}"/>
+                                            </ObjectListItem>
+                                        </items>
+                                    </List>
+                                </IconTabFilter>
+                                <IconTabFilter text="{i18n>standardList}">
+                                    <List items="{/Products}">
+                                        <items>
+                                            <StandardListItem title="{Material} {Brand} {Model}"
+                                                              description="{Weight}"
+                                                              info="{Price} {Currency}"
+                                                              type="Active">
+                                            </StandardListItem>
+                                        </items>
+                                    </List>
+                                </IconTabFilter>
+                                <IconTabFilter text="{i18n>inputList}">
+                                </IconTabFilter>
+                                <IconTabFilter text="{i18n>notificationList}">
+                                </IconTabFilter>
+                                <IconTabFilter text="{i18n>customList}">
+                                </IconTabFilter>
+                            </items>
+                        </IconTabBar>
+                    </content>
+                </Page>
+            </pages>
+        </App>
+    </Shell>
+</mvc:View>
