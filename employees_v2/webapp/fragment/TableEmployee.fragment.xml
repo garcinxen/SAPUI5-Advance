@@ -1,0 +1,76 @@
+<core:FragmentDefinition xmlns:core ="sap.ui.core"
+                         xmlns="sap.m">
+    <Panel id="panel">
+        <Button id="btnShowCity"
+                text="{i18n>btnShowCity}"
+                visible="{jsonConfig>/visibleBtnShowCity}"
+                press=".onShowCity"
+                class="sapUiSmallMarginEnd sapUiSmallMarginTop"/>
+        <Button id="btnHideCity"
+                text="{i18n>btnHideCity}"
+                visible="{jsonConfig>/visibleBtnHideCity}"
+                press=".onHideCity"
+                class="sapUiSmallMarginEnd sapUiSmallMarginTop"/>
+        <Table id="tableEmployee"
+               items="{jsonEmployees>/Employees}">
+            <columns>
+                <Column id="col1"
+                        visible="{jsonConfig>/visibleID}">
+                    <header>
+                        <Label id="labelCol1"
+                               text="{i18n>tableId}">
+                        </Label>
+                    </header>
+                </Column>
+                <Column id="col2"
+                        visible="{jsonConfig>/visibleName}">
+                    <header>
+                        <Label id="labelCol2"
+                               text="{i18n>tableName}">
+                        </Label>
+                    </header>
+                </Column>
+                <Column id="col3"
+                        visible="{jsonConfig>/visibleCountry}">
+                    <header>
+                        <Label id="labelCol3"
+                               text="{i18n>tableCountry}">
+                        </Label>
+                    </header>
+                </Column>
+                <Column id="col4"
+                        visible="{jsonConfig>/visibleCity}">
+                    <header>
+                        <Label id="labelCol4"
+                               text="{i18n>tableCity}"/>
+                    </header>
+                </Column>
+                <Column id="col5"
+                        width="100px">
+                    <header>
+                        <Label id="labelCol5"
+                               text="{i18n>showDetails}"/>
+                    </header>
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem id="colListItem">
+                    <cells>
+                        <Label id="labelCellId"
+                               text="{jsonEmployees>EmployeeID}"/>
+                        <Label id="labelCellName"
+                               text="{jsonEmployees>LastName}, {jsonEmployees>FirstName}"/>
+                        <Label id="labelCellCountry"
+                               text="{jsonEmployees>Country}"/>
+                        <Label id="labelCellCity"
+                               text="{jsonEmployees>City}"/>
+                        <core:Icon src="sap-icon://show"
+                                   press="onShowOrders"/>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+        <HBox id="ordersTable">
+        </HBox>
+    </Panel>
+</core:FragmentDefinition>                         

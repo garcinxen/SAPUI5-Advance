@@ -14,7 +14,7 @@
                                class="sapUiSmallMargin"
                                labelFor="inputEmployee"/>
                         <Input id="inputEmployee"
-                               value="{/EmployeeId}"
+                               value="{jsonCountries>/EmployeeId}"
                                maxLength="10"
                                width="200px"
                                class="sapUiSmallMarginEnd sapUiSmallMarginTop"/>  
@@ -23,14 +23,14 @@
                                class="sapUiSmallMargin"
                                labelFor="slCountry"/>
                         <Select id="slCountry"
-                                selectedKey="{/CountryKey}"
-                                items="{/ListCountry}"
+                                selectedKey="{jsonCountries>/CountryKey}"
+                                items="{jsonCountries>/ListCountry}"
                                 forceSelection="false"
                                 class="sapUiSmallMarginTop sapUiSmallMarginEnd">
                             <items>
                                 <core:Item id="country1"
-                                        key="{Key}"
-                                        text="{Text}"/>
+                                        key="{jsonCountries>Key}"
+                                        text="{jsonCountries>Text}"/>
                             </items>
                         </Select>
                         <Button id="btnFilter"
@@ -44,58 +44,8 @@
                                 press=".onClearFilter"
                                 class="sapUiSmallMarginEnd sapUiSmallMarginTop"/>
                     </HBox>
-                    <HBox id="hbox1">
-                        <Panel id="panel">
-                            <Table id="tableEmployee"
-                                   items="{/Employees}">
-                                <columns>
-                                    <Column id="col1">
-                                        <header>
-                                            <Label id="labelCol1"
-                                                   text="{i18n>tableId}">
-                                            </Label>
-                                        </header>
-                                    </Column>
-                                    <Column id="col2">
-                                        <header>
-                                            <Label id="labelCol2"
-                                                   text="{i18n>tableName}">
-                                            </Label>
-                                        </header>
-                                    </Column>
-                                    <Column id="col3">
-                                        <header>
-                                            <Label id="labelCol3"
-                                                   text="{i18n>tableCountry}">
-                                            </Label>
-                                        </header>
-                                    </Column>
-                                    <Column id="col4">
-                                        <header>
-                                            <Label id="labelCol4"
-                                                   text="{i18n>tableCity}"/>
-                                        </header>
-                                    </Column>
-                                </columns>
-                                <items>
-                                    <ColumnListItem id="colListItem"
-                                                    type="Active"
-                                                    press="showPostalCode">
-                                        <cells>
-                                            <Label id="labelCellId"
-                                                   text="{EmployeeID}"/>
-                                            <Label id="labelCellName"
-                                                   text="{LastName}, {FirstName}"/>
-                                            <Label id="labelCellCountry"
-                                                   text="{Country}"/>
-                                            <Label id="labelCellCity"
-                                                   text="{City}"/>
-                                        </cells>
-                                    </ColumnListItem>
-                                </items>
-                            </Table>
-                        </Panel>
-                    </HBox>
+                    <core:Fragment fragmentName="employeesv2.fragment.TableEmployee"
+                                   type="XML"/>
                 </content>
             </Page>
         </App>
