@@ -108,6 +108,13 @@
                     "clearControlAggregation": false,
                     "viewId": "App",
                     "viewName": "App"
+                },
+                "TargetMasterEmployee": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "MasterEmployee",
+                    "viewName": "MasterEmployee"
                 }
             }
         },

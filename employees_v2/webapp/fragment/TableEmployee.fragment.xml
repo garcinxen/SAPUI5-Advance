@@ -54,7 +54,9 @@
                 </Column>
             </columns>
             <items>
-                <ColumnListItem id="colListItem">
+                <ColumnListItem id="colListItem"
+                                type="Navigation"
+                                press="onShowEmployee">
                     <cells>
                         <Label id="labelCellId"
                                text="{jsonEmployees>EmployeeID}"/>
