@@ -12,7 +12,7 @@
                 press=".onHideCity"
                 class="sapUiSmallMarginEnd sapUiSmallMarginTop"/>
         <Table id="tableEmployee"
-               items="{jsonEmployees>/Employees}">
+               items="{odataNorthwind>/Employees}">
             <columns>
                 <Column id="col1"
                         visible="{jsonConfig>/visibleID}">
@@ -59,13 +59,13 @@
                                 press="onShowEmployee">
                     <cells>
                         <Label id="labelCellId"
-                               text="{jsonEmployees>EmployeeID}"/>
+                               text="{odataNorthwind>EmployeeID}"/>
                         <Label id="labelCellName"
-                               text="{jsonEmployees>LastName}, {jsonEmployees>FirstName}"/>
+                               text="{odataNorthwind>LastName}, {odataNorthwind>FirstName}"/>
                         <Label id="labelCellCountry"
-                               text="{jsonEmployees>Country}"/>
+                               text="{odataNorthwind>Country}"/>
                         <Label id="labelCellCity"
-                               text="{jsonEmployees>City}"/>
+                               text="{odataNorthwind>City}"/>
                         <core:Icon src="sap-icon://show"
                                    press="onShowOrders"/>
                     </cells>
