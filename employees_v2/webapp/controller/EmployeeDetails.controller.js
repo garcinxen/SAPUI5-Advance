@@ -1,9 +1,10 @@
 //@ts-nocheck
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "employeesv2/model/formatter"
+    "employeesv2/model/formatter",
+    "sap/m/MessageBox"
     
-], function(Controller, formatter){
+], function(Controller, formatter, MessageBox){
     "use strict";
 
     function onInit () {
@@ -16,7 +17,7 @@ sap.ui.define([
         let incidenceModel = this.getView().getModel("incidenceModel");
         let odata = incidenceModel.getData();
         let index = odata.length;
-        odata.push({index : index + 1});
+        odata.push({index : index + 1, _validateDate: false, enabledSave: false});
         incidenceModel.refresh();
         newIncidence.bindElement("incidenceModel>/" + index);
         tableIncidence.addContent(newIncidence);
@@ -40,12 +41,20 @@ sap.ui.define([
         //for (let j in tableIncidence.getContent()) {
         //    tableIncidence.getContent()[j].bindElement("incidenceModel>/" + j);
         //};
-
+        
         let oContext = oEvent.getSource().getBindingContext("incidenceModel").getObject();
-        this._bus.publish("incidence", "onDeleteIncidence", {
-            IncidenceId: oContext.IncidenceId,
-            SapId: oContext.SapId,
-            EmployeeId: oContext.EmployeeId
+        let oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
+
+        MessageBox.confirm(oResourceBundle.getText("confirmDelete"), {
+            onClose: function (oAction) {
+                if (oAction === "OK") {
+                    this._bus.publish("incidence", "onDeleteIncidence", {
+                        IncidenceId: oContext.IncidenceId,
+                        SapId: oContext.SapId,
+                        EmployeeId: oContext.EmployeeId
+                    });
+                }
+            }.bind(this)
         });
     };
 
@@ -58,19 +67,67 @@ sap.ui.define([
     function updateIncidenceCreationDate (oEvent) {
         let context = oEvent.getSource().getBindingContext("incidenceModel");
         let oContext = context.getObject();
-        oContext.CreationDateX = true;
+        let oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
+
+        if (!oEvent.getSource().isValidValue()) {
+            oContext._validateDate = false;
+            oContext.CreationDateState = "Error";
+            MessageBox.error(oResourceBundle.getText("invalidDate"), {
+                title: "Error",
+                onClose: null,
+                styleClass: "",
+                actions: MessageBox.Action.Close,
+                emphasizedAction: null,
+                initialFocus: null,
+                textDirection: sap.ui.core.TextDirection.Inherit
+            });
+        } else {
+            oContext._validateDate = true;
+            oContext.CreationDateState = "None";
+            oContext.CreationDateX = true;
+        };
+
+        if (oEvent.getSource().isValidValue() && oContext.Reason) {
+            oContext.enabledSave = true;
+        } else {
+            oContext.enabledSave = false;
+        };
+        
+        context.getModel().refresh();
     };
 
     function updateIncidenceReason (oEvent) {
         let context = oEvent.getSource().getBindingContext("incidenceModel");
         let oContext = context.getObject();
-        oContext.ReasonX = true;
+        
+        if (oEvent.getSource().getValue()) {            
+            oContext.ReasonState = "None";
+            oContext.ReasonX = true;
+        } else {
+            oContext.ReasonState = "Error";
+        };
+
+        if (oContext._validateDate && oEvent.getSource().getValue()) {
+            oContext.enabledSave = true;
+        } else {
+            oContext.enabledSave = false;
+        };
+        
+        context.getModel().refresh();
     };
 
     function updateIncidenceType (oEvent) {
         let context = oEvent.getSource().getBindingContext("incidenceModel");
         let oContext = context.getObject();
         oContext.TypeX = true;
+
+        if (oContext._validateDate && oContext.Reason) {
+            oContext.enabledSave = true;
+        } else {
+            oContext.enabledSave = false;
+        };
+
+        context.getModel().refresh();
     };
 
     let EmployeeDetails = Controller.extend("employeesv2.controller.EmployeeDetails", {});
