@@ -1,6 +1,6 @@
 //@ts-nocheck
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
+    "employeesv2/controller/Base.controller",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator"
 ],
@@ -9,7 +9,7 @@ sap.ui.define([
      * @param {typeof sap.ui.model.Filter} Filter
      * @param {typeof sap.ui.model.FilterOperator} FilterOperator
      */
-    function (Controller, Filter, FilterOperator) {
+    function (Base, Filter, FilterOperator) {
         "use strict";
 
         function onInit () {            
@@ -167,16 +167,7 @@ sap.ui.define([
             this._bus.publish("flexible", "onShowEmployee", path);            
         };
 
-        function toOrderDetails (oEvent) {
-            let orderId = oEvent.getSource().getBindingContext("odataNorthwind").getObject().OrderID;
-            let oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-
-            oRouter.navTo("RouteOrderDetails", {
-                OrderId: orderId
-            });
-        };
-
-        let Main = Controller.extend("employeesv2.controller.MasterEmployee", {});
+        let Main = Base.extend("employeesv2.controller.MasterEmployee", {});
             
         // Main.prototype.onValidate = function () {
         //     let inputEmployee = this.byId("inputEmployee");
@@ -202,7 +193,6 @@ sap.ui.define([
         Main.prototype.onShowOrders = onShowOrders;
         Main.prototype.onCloseOrders = onCloseOrders;
         Main.prototype.onShowEmployee = onShowEmployee;
-        Main.prototype.toOrderDetails = toOrderDetails;
 
         return Main; 
     });
