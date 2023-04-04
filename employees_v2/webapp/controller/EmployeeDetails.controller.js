@@ -130,6 +130,15 @@ sap.ui.define([
         context.getModel().refresh();
     };
 
+    function toOrderDetails (oEvent) {
+        let orderId = oEvent.getSource().getBindingContext("odataNorthwind").getObject().OrderID;
+        let oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+
+        oRouter.navTo("RouteOrderDetails", {
+            OrderId: orderId
+        });
+    };
+
     let EmployeeDetails = Controller.extend("employeesv2.controller.EmployeeDetails", {});
 
     EmployeeDetails.prototype.onInit = onInit;
@@ -140,6 +149,7 @@ sap.ui.define([
     EmployeeDetails.prototype.updateIncidenceCreationDate = updateIncidenceCreationDate;
     EmployeeDetails.prototype.updateIncidenceReason = updateIncidenceReason;
     EmployeeDetails.prototype.updateIncidenceType = updateIncidenceType;
+    EmployeeDetails.prototype.toOrderDetails = toOrderDetails;
 
     return EmployeeDetails;
 });

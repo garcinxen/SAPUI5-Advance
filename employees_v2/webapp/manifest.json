@@ -125,6 +125,13 @@
                     "target": [
                         "TargetApp"
                     ]
+                },
+                {
+                    "name": "RouteOrderDetails",
+                    "pattern": "OrderDetails/{OrderId}",
+                    "target": [
+                        "TargetOrderDetails"
+                    ]
                 }
             ],
             "targets": {
@@ -135,12 +142,9 @@
                     "viewId": "App",
                     "viewName": "App"
                 },
-                "TargetMasterEmployee": {
+                "TargetOrderDetails": {
                     "viewType": "XML",
-                    "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewId": "MasterEmployee",
-                    "viewName": "MasterEmployee"
+                    "viewName": "OrderDetails"
                 }
             }
         },
@@ -148,7 +152,7 @@
             "viewName": "employeesv2.view.App",
             "type": "XML",
             "async": true,
-            "id": "App"
+            "id": "app"
         }
     },
     "sap.cloud": {

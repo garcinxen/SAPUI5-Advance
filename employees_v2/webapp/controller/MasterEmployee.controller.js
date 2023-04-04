@@ -167,22 +167,31 @@ sap.ui.define([
             this._bus.publish("flexible", "onShowEmployee", path);            
         };
 
+        function toOrderDetails (oEvent) {
+            let orderId = oEvent.getSource().getBindingContext("odataNorthwind").getObject().OrderID;
+            let oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+
+            oRouter.navTo("RouteOrderDetails", {
+                OrderId: orderId
+            });
+        };
+
         let Main = Controller.extend("employeesv2.controller.MasterEmployee", {});
             
-        Main.prototype.onValidate = function () {
-            let inputEmployee = this.byId("inputEmployee");
-            let valueEmployee = inputEmployee.getValue();
+        // Main.prototype.onValidate = function () {
+        //     let inputEmployee = this.byId("inputEmployee");
+        //     let valueEmployee = inputEmployee.getValue();
 
-            if (valueEmployee.length === 6) {
-                //inputEmployee.setDescription("OK");
-                this.getView().byId("labelCountry").setVisible(true);
-                this.getView().byId("slCountry").setVisible(true);
-            } else {
-                //inputEmployee.setDescription("NOT OK");
-                this.getView().byId("labelCountry").setVisible(false);
-                this.getView().byId("slCountry").setVisible(false);
-            }
-        };
+        //     if (valueEmployee.length === 6) {
+        //         //inputEmployee.setDescription("OK");
+        //         this.getView().byId("labelCountry").setVisible(true);
+        //         this.getView().byId("slCountry").setVisible(true);
+        //     } else {
+        //         //inputEmployee.setDescription("NOT OK");
+        //         this.getView().byId("labelCountry").setVisible(false);
+        //         this.getView().byId("slCountry").setVisible(false);
+        //     }
+        // };
 
         Main.prototype.onInit = onInit;
         Main.prototype.onFilter = onFilter;
@@ -193,6 +202,7 @@ sap.ui.define([
         Main.prototype.onShowOrders = onShowOrders;
         Main.prototype.onCloseOrders = onCloseOrders;
         Main.prototype.onShowEmployee = onShowEmployee;
+        Main.prototype.toOrderDetails = toOrderDetails;
 
         return Main; 
     });
