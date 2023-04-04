@@ -13,7 +13,7 @@ sap.ui.define([
                     defaultValue:"440px"
                 },
                 "height": {
-                    type:"sap.ui.CSSSize",
+                    type:"sap.ui.core.CSSSize",
                     defaultValue:"100px"
                 },
                 "bgcolor": {
