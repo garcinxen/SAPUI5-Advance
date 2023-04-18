@@ -1,4 +1,4 @@
-<mvc:View controllerName="employeesv2.controller.OrderDetails"
+<mvc:View xmlns:upload="sap.m.upload" controllerName="employeesv2.controller.OrderDetails"
           xmlns:mvc="sap.ui.core.mvc" 
           displayBlock="true"
           xmlns="sap.m"
@@ -61,11 +61,27 @@
                                 press="onClearSignature"
                                 class="sapUiTinyMarginBegin"/>
                     </FlexBox>
-                </l:Grid>
+                </l:Grid>            
+                <upload:UploadSet id="uploadSet"                                  
+                                  maxFileNameLength="55"
+                                  maxFileSize="10"
+                                  uploadUrl="/sap/opu/odata/sap/YSAPUI5_SRV_01/FilesSet"
+                                  uploadCompleted="onFileUploadComplete"
+                                  beforeUploadStarts="onFileBeforeUpload"
+                                  afterItemRemoved ="onFileDeleted"/>
+                <Panel headerText="{i18n>orderProducts}">
+                    <List items="{path: 'odataNorthwind>Order_Details', parameters: {expand: 'Product'}, factory: '.factoryOrderDetails'}"/>
+                </Panel>
             </Panel>
-            <Panel headerText="{i18n>orderProducts}">
-                <List items="{path: 'odataNorthwind>Order_Details', parameters: {expand: 'Product'}, factory: '.factoryOrderDetails'}"/>
-            </Panel>
-        </content>        
+        </content>
+        <footer>
+            <Toolbar>
+                <ToolbarSpacer/>
+                <Button text="{i18n>downloadFile}"
+                        press="onDownloadFile"/>
+                <Button text="{i18n>saveSignature}"
+                        press="onSaveSignature"/>
+            </Toolbar>
+        </footer>        
     </Page>        
 </mvc:View>
